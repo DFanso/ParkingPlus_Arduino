@@ -1,5 +1,7 @@
 #Parking_plus_Arduino
 
+#api endpoints is up and running 
+
 #NodeMCU_Parking code purpose
 
 uses an ultrasonic sensor, two IR sensors, and a servo motor to detect and control the parking slot's occupancy. The code also sends occupancy data to a server for monitoring purposes.
