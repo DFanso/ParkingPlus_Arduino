@@ -1,6 +1,6 @@
 #Parking_plus_Arduino
 
-#api endpoints is up and running 
+#api endpoints up and running 
 
 #NodeMCU_Parking code purpose
 
