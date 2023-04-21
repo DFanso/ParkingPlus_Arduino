@@ -4,7 +4,7 @@
 
 ## NodeMCU_Parking code purpose
 
-uses an ultrasonic sensor, two IR sensors, and a servo motor to detect and control the parking slot's occupancy. The code also sends occupancy data to a server for monitoring purposes.
+- uses an ultrasonic sensor, two IR sensors, and a servo motor to detect and control the parking slot's occupancy. The code also sends occupancy data to a server for monitoring purposes.
 
 The code first initializes the pins for the ultrasonic sensor, IR sensors, and servo motor. It also creates a Servo object for controlling the servo motor. The constants for the object threshold and open time are also defined.
 
@@ -20,7 +20,7 @@ Overall, this code provides a basic implementation of a parking system that uses
 
 ## ESP32 Cam code purpose
 
-capture an image using an ESP32-CAM module and send it to a server using Wi-Fi. The captured image is in JPEG format, and the code uses the esp_camera library to configure the camera and capture the image. The captured image is then sent to a server using an HTTP POST request. The server address and port are defined in the serverUrl variable.
+- capture an image using an ESP32-CAM module and send it to a server using Wi-Fi. The captured image is in JPEG format, and the code uses the esp_camera library to configure the camera and capture the image. The captured image is then sent to a server using an HTTP POST request. The server address and port are defined in the serverUrl variable.
 
 The code initializes the camera configuration using the camera_config_t structure, which includes pins definition and other camera parameters such as resolution and JPEG quality. The Wi-Fi network is then connected using the WiFi.begin() function, and the code waits until the connection is established.
 
@@ -30,7 +30,7 @@ Finally, the captured frame buffer is released using the esp_camera_fb_return() 
 
 ## NodeMCU code purpose
 
-This code uses an ultrasonic sensor and a servo motor to control the opening and closing of a door. The ultrasonic sensor is used to detect if an object is within a certain distance from the sensor, and if so, it triggers the servo motor to open the door.
+- This code uses an ultrasonic sensor and a servo motor to control the opening and closing of a door. The ultrasonic sensor is used to detect if an object is within a certain distance from the sensor, and if so, it triggers the servo motor to open the door.
 
 The code initializes the Servo and SoftwareSerial objects, and defines the pins used for the servo motor, ultrasonic sensor, and ESP32-CAM communication. The maximum distance to trigger the servo is also defined.
 
