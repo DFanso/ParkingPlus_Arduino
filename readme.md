@@ -1,8 +1,8 @@
-###Parking_plus_Arduino
+# Parking_plus_Arduino
 
-##api endpoints up and running 
+## api endpoints up and running 
 
-##NodeMCU_Parking code purpose
+## NodeMCU_Parking code purpose
 
 uses an ultrasonic sensor, two IR sensors, and a servo motor to detect and control the parking slot's occupancy. The code also sends occupancy data to a server for monitoring purposes.
 
@@ -18,7 +18,7 @@ The sendDataToServer() function sends the occupancy data to the server. If the W
 
 Overall, this code provides a basic implementation of a parking system that uses various sensors and a servo motor to control the occupancy of a parking slot and sends data to a server for monitoring purposes.
 
-##ESP32 Cam code purpose
+## ESP32 Cam code purpose
 
 capture an image using an ESP32-CAM module and send it to a server using Wi-Fi. The captured image is in JPEG format, and the code uses the esp_camera library to configure the camera and capture the image. The captured image is then sent to a server using an HTTP POST request. The server address and port are defined in the serverUrl variable.
 
@@ -28,7 +28,7 @@ In the loop() function, the code captures an image using the esp_camera_fb_get()
 
 Finally, the captured frame buffer is released using the esp_camera_fb_return() function, and the code waits for 5 seconds before taking the next picture.
 
-##NodeMCU code purpose
+## NodeMCU code purpose
 
 This code uses an ultrasonic sensor and a servo motor to control the opening and closing of a door. The ultrasonic sensor is used to detect if an object is within a certain distance from the sensor, and if so, it triggers the servo motor to open the door.
 
