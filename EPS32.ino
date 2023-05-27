@@ -3,37 +3,38 @@
 #include <HTTPClient.h>
 
 // Replace with your network credentials
-const char* ssid = "abc";
-const char* password = "abcd1234";
+const char *ssid = "abc";
+const char *password = "abcd1234";
 
 // Replace with your server's IP address and port
-const char* serverUrl = "http://20.2.80.190:3000/upload";
+const char *serverUrl = "http://159.89.203.249:4001/upload";
 
 // Pin definition for the AI-THINKER ESP32-CAM module
-#define PWDN_GPIO_NUM     32
-#define RESET_GPIO_NUM    -1
-#define XCLK_GPIO_NUM      0
-#define SIOD_GPIO_NUM     26
-#define SIOC_GPIO_NUM     27
+#define PWDN_GPIO_NUM 32
+#define RESET_GPIO_NUM -1
+#define XCLK_GPIO_NUM 0
+#define SIOD_GPIO_NUM 26
+#define SIOC_GPIO_NUM 27
 
-#define Y9_GPIO_NUM       35
-#define Y8_GPIO_NUM       34
-#define Y7_GPIO_NUM       39
-#define Y6_GPIO_NUM       36
-#define Y5_GPIO_NUM       21
-#define Y4_GPIO_NUM       19
-#define Y3_GPIO_NUM       18
-#define Y2_GPIO_NUM        5
-#define VSYNC_GPIO_NUM    25
-#define HREF_GPIO_NUM     23
-#define PCLK_GPIO_NUM     22
+#define Y9_GPIO_NUM 35
+#define Y8_GPIO_NUM 34
+#define Y7_GPIO_NUM 39
+#define Y6_GPIO_NUM 36
+#define Y5_GPIO_NUM 21
+#define Y4_GPIO_NUM 19
+#define Y3_GPIO_NUM 18
+#define Y2_GPIO_NUM 5
+#define VSYNC_GPIO_NUM 25
+#define HREF_GPIO_NUM 23
+#define PCLK_GPIO_NUM 22
 
 #define ESP32_TX_PIN 14 // Define the ESP32-CAM TX pin
 #define ESP32_RX_PIN 12 // Define the ESP32-CAM RX pin
 
 HardwareSerial nodeMCU_Serial(2); // Create a HardwareSerial object for communication with NodeMCU
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   Serial.setDebugOutput(true);
   Serial.println();
@@ -68,14 +69,16 @@ void setup() {
 
   // Camera init
   esp_err_t err = esp_camera_init(&config);
-  if (err != ESP_OK) {
+  if (err != ESP_OK)
+  {
     Serial.printf("Camera init failed with error 0x%x", err);
     return;
   }
 
   // Wi-Fi connection
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(1000);
     Serial.print(".");
   }
@@ -83,41 +86,50 @@ void setup() {
   Serial.println("WiFi connected");
 }
 
-void loop() {
-  camera_fb_t * fb = NULL;
+void loop()
+{
+  camera_fb_t *fb = NULL;
   fb = esp_camera_fb_get();
-  if (!fb) {
+  if (!fb)
+  {
     Serial.println("Camera capture failed");
-return;
-}
-
-if (WiFi.status() == WL_CONNECTED) {
-HTTPClient http;
-
-http.begin(serverUrl);
-http.addHeader("Content-Type", "multipart/form-data; boundary=esp32_boundary");
-String startBoundary = "--esp32_boundary\r\nContent-Disposition: form-data; name=\"image\"; filename=\"picture.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n";
-String endBoundary = "\r\n--esp32_boundary--\r\n";
-int httpCode = http.POST(startBoundary + String((const char*)fb->buf, fb->len) + endBoundary);
-
-if (httpCode > 0) {
-  String payload = http.getString();
-  Serial.println("Server Response: ");
-  Serial.println(payload);
-
-  // Check if the server response equals "true"
-  if (payload == "true") {
-    nodeMCU_Serial.print("OPEN"); // Send the "OPEN" command to the NodeMCU
+    return;
   }
-} else {
-  Serial.printf("Error sending image to server, HTTP code: %d\n", httpCode);
-}
-http.end();
-} else {
-Serial.println("Error in WiFi connection");
-}
 
-esp_camera_fb_return(fb);
+  if (WiFi.status() == WL_CONNECTED)
+  {
+    HTTPClient http;
 
-delay(5000); // Wait for 5 seconds before taking the next picture
+    http.begin(serverUrl);
+    http.addHeader("Content-Type", "multipart/form-data; boundary=esp32_boundary");
+    String startBoundary = "--esp32_boundary\r\nContent-Disposition: form-data; name=\"image\"; filename=\"picture.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n";
+    String endBoundary = "\r\n--esp32_boundary--\r\n";
+    int httpCode = http.POST(startBoundary + String((const char *)fb->buf, fb->len) + endBoundary);
+
+    if (httpCode > 0)
+    {
+      String payload = http.getString();
+      Serial.println("Server Response: ");
+      Serial.println(payload);
+
+      // Check if the server response equals "true"
+      if (payload == "true")
+      {
+        nodeMCU_Serial.print("OPEN"); // Send the "OPEN" command to the NodeMCU
+      }
+    }
+    else
+    {
+      Serial.printf("Error sending image to server, HTTP code: %d\n", httpCode);
+    }
+    http.end();
+  }
+  else
+  {
+    Serial.println("Error in WiFi connection");
+  }
+
+  esp_camera_fb_return(fb);
+
+  delay(5000); // Wait for 5 seconds before taking the next picture
 }

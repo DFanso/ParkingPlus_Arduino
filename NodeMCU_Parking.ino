@@ -112,7 +112,7 @@ void sendDataToServer(String bothOccupied) {
     WiFiClient client;
 
     // Replace with your Node.js server URL and endpoint
-    String url = "http://20.2.80.190:3000/parking";
+    String url = "http://159.89.203.249:4001/parking";
     url += "?bothOccupied=" + bothOccupied;
 
     http.begin(client, url);
